@@ -1,58 +1,14 @@
-body {
-  background: #000;
-  color: #cfffff;
-  font-family: "Source Code Pro", system-ui, sans-serif;
-  padding: 2rem;
+:root {
+  --bg-color: #ffffff;
+  --text-color: #111111;
+  --card-bg: (0, 0, 0, 0.1);
+  --header-bg: #f0f0f0;
 }
 
-header {
-  margin-bottom: 3rem;
-}
-
-.glow {
-  font-size: 3rem;
-  color: #cfffff;
-  text-shadow:
-    0 0 10px #4efcff,
-    0 0 20px #4efcff;
-}
-
-.card-grid {
-  display: flex;
-  gap: 2rem;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.card {
-  width: 280px;
-  padding: 1.5rem;
-  border-radius: 50px;
-  text-decoration: none;
-  color: inherited;
-  background-color: rgba(0, 0, 0, 0.3);
-
-  border: 2px solid #4efcff;
-  box-shadow:
-    0 0 15px rgba(78,252,255,0.6);
-
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease,
-    border-radius 0.2s ease;
-}
-
-.card:hover {
-  transform: scale(1.03);
-  box-shadow:
-    0 0 30px rgba(78,252,255,1);
-  border-radius: 0px;
-}
-
-.card h2 {
-  margin-bottom: 0.5rem;
-}
-
-.card ul {
-  padding-left: 1.2rem;
+/* Dark mode overrides */
+body.dark-mode {
+  --bg-color: #000000;
+  --text-color: #eeeeee;
+  --card-bg: rgba(0, 0, 0, 0.3);
+  --header-bg: #1a1a1a;
 }
