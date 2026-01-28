@@ -1,11 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Noah Zielinski – Portfolio</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-<body>
-  <h1>Noah Zielinski</h1>
-  <p>Student • Programmer • Youtuber • Novelist</p>
+<body class="dark">
+  <header>
+    <h1>Noah Zielinski</h1>
+    <p>Programmer • Language Designer • Game Dev</p>
+    <button id="theme-toggle">🌞 Light Mode</button>
+  </header>
+
+  <main>
+    <section id="projects">
+      <h2>Projects</h2>
+      <div class="card">
+        <h3>BrokenScript</h3>
+        <p>Custom programming language and parser.</p>
+        <a href="https://github.com/yourusername/BrokenScript" target="_blank">GitHub →</a>
+      </div>
+      <div class="card">
+        <h3>ShatterEngine</h3>
+        <p>Game engine project (private / non-GitHub).</p>
+        <a href="#">Demo coming soon</a>
+      </div>
+    </section>
+
+    <section id="media">
+      <h2>Media</h2>
+      <p>
+        <a href="https://youtube.com/@yourchannel" target="_blank">YouTube Channel</a><br>
+        <a href="https://github.com/yourusername" target="_blank">GitHub Profile</a>
+      </p>
+    </section>
+  </main>
+
+  <script src="theme.js"></script>
 </body>
 </html>
