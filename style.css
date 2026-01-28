@@ -1,7 +1,7 @@
 :root {
   --bg-color: #000000;
   --text-color: #eeeeee;
-  --card-bg: rgba(50, 50, 50, 0.3);
+  --card-bg: rgba(50, 50, 50, 0.1);
   --header-bg: #1a1a1a;
   --card-glow: #cfffff;
 }
@@ -46,11 +46,12 @@ main {
   padding: 20px;
   margin: 15px;
   transition: background-color 0.3s, box-shadow 0.3s;
+  box-shadow: 0 0 10px var(--card-glow);
 }
 
 .card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px var(--card-shadow);
+  transform: scale(1.05);
+  box-shadow: 0 0 20px var(--card-glow);
 }
 
 /* Make links fill the card */
