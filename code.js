@@ -19,4 +19,3 @@ themeButton.addEventListener('click', () => {
     localStorage.setItem('theme', 'dark');
   }
 });
-✅ What this does:
