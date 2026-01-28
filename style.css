@@ -26,11 +26,20 @@ body {
   transition: background-color 0.3s, color 0.3s;
 }
 
+
+
 header {
   background-color: var(--header-bg);
   padding: 20px;
-  text-align: center;
-  transition: background-color 0.3s;
+  text-align: left;
+  border: 2px solid var(--card-border);
+  box-shadow: 0 0 20px var(--card-glow), inset 0 0 15px var(--card-glow);
+  
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  
+  
 }
 
 main {
@@ -46,7 +55,6 @@ main {
 /* Card styles */
 .card {
   background-color: var(--card-bg);
-  box-shadow: 0 4px 12px var(--card-shadow);
   width: 300px;
   height: 300px;
   border-radius: 20px;
