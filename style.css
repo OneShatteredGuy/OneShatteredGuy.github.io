@@ -1,14 +1,14 @@
 :root {
-  --bg-color: #ffffff;
-  --text-color: #111111;
-  --card-bg: (0, 0, 0, 0.1);
-  --header-bg: #f0f0f0;
-}
-
-/* Dark mode overrides */
-body.dark-mode {
   --bg-color: #000000;
   --text-color: #eeeeee;
   --card-bg: rgba(0, 0, 0, 0.3);
   --header-bg: #1a1a1a;
+}
+
+/* Dark mode overrides */
+body.dark-mode {
+  --bg-color: #ffffff;
+  --text-color: #111111;
+  --card-bg: (0, 0, 0, 0.1);
+  --header-bg: #f0f0f0;
 }
