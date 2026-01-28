@@ -46,12 +46,12 @@ main {
   padding: 20px;
   margin: 15px;
   transition: background-color 0.3s, box-shadow 0.3s;
-  box-shadow: 0 0 10px var(--card-glow);
+  box-shadow: 0 0 15px var(--card-glow), inset 0 0 15px var(--card-glow);
 }
 
 .card:hover {
   transform: scale(1.05);
-  box-shadow: 0 0 20px var(--card-glow);
+  box-shadow: 0 0 20px var(--card-glow), inset 0 0 20px var(--card-glow);
 }
 
 /* Make links fill the card */
