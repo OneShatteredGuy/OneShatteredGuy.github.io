@@ -49,7 +49,7 @@ main {
   display: grid;
   grid-template-columns: repeat(3, 350px);
   gap: 20px;
-  padding: 20px;
+  padding: 30px;
 
   justify-content: center;
   align-content: center; 
