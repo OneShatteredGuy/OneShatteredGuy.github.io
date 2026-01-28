@@ -35,7 +35,7 @@ header {
 
 main {
   display: grid;
-  grid-template-columns: repeat(3, 300px);
+  grid-template-columns: repeat(3, 350px);
   gap: 20px;
   padding: 20px;
 
@@ -48,7 +48,7 @@ main {
   background-color: var(--card-bg);
   box-shadow: 0 4px 12px var(--card-shadow);
   width: 300px;
-  height: 400px;
+  height: 300px;
   border-radius: 20px;
   border: 2px solid var(--card-border);
   padding: 20px;
