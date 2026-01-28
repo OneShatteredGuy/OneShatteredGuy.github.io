@@ -4,15 +4,17 @@
   --card-bg: rgba(50, 50, 50, 0.1);
   --header-bg: #1a1a1a;
   --card-glow: #00ffff;
+  --card-border: #ffffff;
 }
 
 /*Light mode overrides*/
 body.light-mode {
   --bg-color: #ffffff;
   --text-color: #111111;
-  --card-bg: (13, 19, 58, 0.7);
+  --card-bg: rgba(13, 19, 58, 0.7);
   --header-bg: #f0f0f0;
   --card-glow: #000000;
+  --card-border: rgba(13, 19, 58, 1);
 }
 
 /* Apply variables */
@@ -43,6 +45,7 @@ main {
   background-color: var(--card-bg);
   box-shadow: 0 4px 12px var(--card-shadow);
   border-radius: 12px;
+  border: 2px solid var(--card-border);
   padding: 20px;
   margin: 15px;
   transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
