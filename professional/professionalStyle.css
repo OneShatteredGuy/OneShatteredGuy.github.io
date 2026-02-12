@@ -1,0 +1,196 @@
+:root {
+    --bg-color: black;
+    --header-color: rgba(25, 25, 25, 0.6);
+    --main-color: #222222;
+    --secondary-color: #333333;
+    --border-color: #cccccc;
+    --text-color: #cccccc;
+}
+
+.light-mode {
+    --bg-color: white;
+    --header-color: rgba(255, 255, 255, 0.8);
+    --main-color: #ffffff;
+    --secondary-color: #dddddd;
+    --border-color: black;
+    --text-color: #222222;
+}
+
+html, body {
+    height: 100%;
+}
+
+header {
+    background-color: var(--header-color);
+    text-align: left;
+    border-bottom: 3px solid var(--border-color);
+    padding: 0;
+    
+    transition: background-color 0.3s, border-bottom 0.3s;
+    
+}
+header h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 20px;
+    
+    cursor: default;
+}
+header div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    
+    cursor: default;
+}
+header p {
+    font-size: 1.3rem;
+    flex: 0 0 auto;
+    text-align: center;
+    padding: 20px;
+    
+    cursor: default;
+}
+body {
+    background-color: var(--bg-color);
+    font-family: sans-serif;
+    margin: 0;
+    display: flex;
+    color: var(--text-color);
+    flex-direction: column;
+    
+    transition: background-color 0.3s, color 0.3s;
+}
+
+main {
+    position: relative;
+    flex: 1 1 auto;
+    flex-direction: column;
+    
+    padding: 20px;
+    
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    background-color: var(--main-color);
+    
+    transition: background-color 0.3s;
+}
+
+.overlay {
+    position: fixed;
+    inset: 0;
+    background-color: black;
+    transition: background-color 0.3s;
+    pointer-events: none;
+    z-index: 10000;
+}
+
+
+
+.topicSelectionButton {
+    flex: 1;
+    
+    border-radius: 0;
+    border-width: 1px;
+    border-color: var(--border-color);
+    
+    font-size: 1rem;
+    min-height: 50px;
+    background-color: var(--secondary-color);
+    color: var(--font-color);
+    width: 100%;
+    
+    transition: border-color 0.3s, color 0.3s, background-color 0.3s;
+    
+    cursor: pointer;
+}
+
+.settingButton {
+    flex: 1;
+    border-width: 1px;
+    border-color: var(--border-color);
+    border-style: solid;
+    min-height: 51px;
+    
+    cursor: pointer;
+}
+
+
+.settings {
+    position: absolute;
+    right: 0%;
+    display: flex;
+    width: calc(100vw / 7);
+    height: 51px;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 1000;
+    
+    transition: height 0.15s;
+    
+    cursor: pointer;
+}
+
+.selectionRow {
+    align-items: flex-start;
+    cursor: pointer;
+}
+
+.card {
+    flex: 0 1 auto;
+    
+    border-radius: 0;
+    border-width: 3px;
+    border-style: solid;
+    border-color: var(--border-color);
+    
+    margin: 20px;
+    padding: 20px;
+    
+    min-height: 50px;
+    
+    background-color: var(--secondary-color);
+    
+    cursor: pointer;
+    
+    transition: border-color 0.3s, background-color 0.3s, transform 0.3s;
+}
+
+
+.card h2 {
+    margin: 0;
+}
+
+.card h2, p {
+    cursor: pointer;
+}
+
+.card:hover {
+    transform: scale(1.02);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
