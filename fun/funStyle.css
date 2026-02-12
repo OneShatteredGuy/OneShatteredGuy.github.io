@@ -1,0 +1,228 @@
+:root {
+  --bg-color: #000000;
+  --text-color: #eeeeee;
+  --card-bg: rgba(25, 25, 25, 0.8);
+  --header-bg: #1a1a1a;
+  --card-glow: #00ffff;
+  --card-border: #ffffff;
+  --blur-radius: 20px;
+  --button-translation: 0px;
+  --achievement-background: rgba(25, 25, 25, 0.8);
+}
+
+/*Light mode overrides*/
+body.light-mode {
+  --bg-color: #ffffff;
+  --text-color: #111111;
+  --card-bg: rgba(255,255,255, 0.6);
+  --header-bg: #f0f0f0;
+  --card-glow: #000000;
+  --card-border: rgba(13, 19, 58, 1);
+  --blur-radius: 30px;
+  --achievement-background: rgba(255, 255, 255, 0.9);
+}
+
+/* Apply variables */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: sans-serif;
+  margin: 0;
+  transition: background-color 0.3s, color 0.3s;
+  overflow: hidden;
+}
+
+
+
+header {
+  background-color: var(--header-bg);
+  padding: 20px;
+  text-align: left;
+  border-bottom: 3px solid var(--card-border);
+  box-shadow: 0 0 var(--blur-radius) var(--card-glow);
+  
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  
+  transition: background-color 0.3s;
+}
+
+h1 {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+header h1 {
+  margin-top: 0;
+  
+  cursor: default;
+}
+
+header p {
+  cursor: default;
+}
+
+main {
+  display: grid;
+  grid-template-columns: repeat(3, 350px);
+  gap: 20px;
+  padding: 30px;
+
+  justify-content: center;
+  align-content: center; 
+}
+
+/* Card styles */
+.card {
+  background-color: var(--card-bg);
+  width: 300px;
+  height: 300px;
+  border-radius: 20px;
+  border: 3px solid var(--card-border);
+  padding: 20px;
+  margin: 15px;
+  transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+  box-shadow: 0 0 var(--blur-radius) var(--card-glow), inset 0 0 var(--blur-radius) var(--card-glow);
+  
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 var(--blur-radius) var(--card-glow), inset 0 0 var(--blur-radius) var(--card-glow);
+}
+
+.card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.darkmodetoggle {
+  display: flex;
+  flex: 0 0  40px;
+  flex-direction: column;
+  justify-content: top;
+  gap: 20px;
+    
+  width: 40px;
+  height: 40px;
+  
+  background-color: var(--bg-color);
+  border-radius: 10px;
+  border: 2px solid var(--card-border);
+  
+  overflow: hidden;
+  transition: background-color 0.3s
+  
+  cursor: pointer;
+}
+
+
+.modetogglebutton {
+    border: 0;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0);
+  
+  cursor: pointer;
+}
+
+.slideAnimation {
+    animation: slideUp 0.3s forwards;
+}
+
+@keyframes slideUp {
+  0%   { transform: translateY(0); }
+  100% { transform: translateY(-40px); } /* move up by one button height */
+}
+
+.rightButtons {
+    display: flex;
+    gap: 20px;
+}
+
+.button {
+    width: 45px;
+    height: 45px;
+    
+    background-color: var(--bg-color);
+    border-radius: 10px;
+    border: 2px solid var(--card-border);
+    
+    transition: background-color 0.3s;
+  
+  cursor: pointer;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+    transition: background-color 0.3s;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+.achievement {
+  background-color: var(--achievement-background);
+  position: absolute;
+  min-height: 50px;
+  max-width: 550px;
+  padding: 10px;
+  margin: 20px;
+  border-radius: 20px;
+  border-width: 2px;
+  border-style:solid;
+  border-color: var(--card-border);
+  
+  bottom: -20%;
+  transition: bottom 0.2s;
+  
+  cursor: default;
+}
+
+.achievement h3 {
+  padding: 0;
+  margin: 0;
+  
+  cursor: inherit;
+}
+
+.achievement p {
+  padding: 0;
+  margin: 5;
+  
+  cursor: inherit;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
