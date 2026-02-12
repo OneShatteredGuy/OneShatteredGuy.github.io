@@ -22,11 +22,11 @@ document.addEventListener('DOMContentLoaded', () => {
     
     if (autoTheme === "fun") {
         sessionStorage.setItem('isFun', true);
-        fadeAndRedirect('../fun/fun.html');
+        fadeAndRedirect('/fun/fun.html');
         return;
     } else if (autoTheme === "professional") {
         sessionStorage.setItem('isFun', false);
-        fadeAndRedirect('../professional/professional.html');
+        fadeAndRedirect('/professional/professional.html');
         return;
     }
     
@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
             localStorage.setItem('autoTheme', 'none');
         }
         sessionStorage.setItem('currentTheme', 'fun');
-        fadeAndRedirect("../fun/fun.html");
+        fadeAndRedirect("/fun/fun.html");
     });
     
     professionalChoiceBtn?.addEventListener('click', () => {
@@ -52,6 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
             localStorage.setItem('autoTheme', 'none');
         }
         sessionStorage.setItem('currentTheme', 'professional');
-        fadeAndRedirect("../professional/professional.html");
+        fadeAndRedirect("/professional/professional.html");
     });
 });
+
