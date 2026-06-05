@@ -1,15 +1,110 @@
 //global constants
 const params = new URLSearchParams(window.location.search);
 const overlay = document.getElementById('overlay');
+const main = document.querySelector('main');
 
-(function initOverlay() {
-  // force initial state explicitly
-  overlay.style.backgroundColor = 'black';
+//helper functions://
+
+//takes roman numeral string gives integer
+function romanToInt(roman) {
+  if (roman === null) {
+    return null;
+  }
   
-  //setting the overlay late because satisfying;
-  setTimeout(() => {
-    fadeTo('transparent', overlay);
-  }, 250);
+  const map = { I:1, V:5, X:10, L:50, C:100, D:500, M:1000 };
+  let total = 0, prev = 0;
+  
+  for (let i = roman.length - 1; i >= 0; i--) {
+    const val = map[roman[i]] || 0;
+    total += val < prev ? -val : val;
+    prev = val;
+  }
+  
+  return total;
+}
+
+//makes the given element transition over
+//the given time frame to the given color
+window.fadeTo = function(color, object, time) {
+  return new Promise(resolve => {
+    const prevTransition = object.style.transition;
+    function done() {
+      object.removeEventListener('transitionend', done);
+      object.style.transition = prevTransition;
+      resolve();
+    }
+    object.addEventListener('transitionend', done);
+
+    // trigger fade
+    object.style.transition = `background-color ${time}s ease`;
+    object.style.backgroundColor = color;
+  });
+};
+
+/*takes a list of items and a mapping range and
+calculates the % visible of each object in order
+to*///update '--visibility' variable
+window.updateVisibility = function(cards, range = [0, 1]) {
+  //Checking for inconsistencies in the
+  //card's parent container and returning
+  if ((() => {
+    const setParent = cards[0].parentElement;
+    for (const card of cards) {
+      if (card.parentElement !== setParent) return true;
+    }
+    return false;
+  })()) return;
+  
+  const mainRect = cards[0].parentElement.getBoundingClientRect();
+  
+  cards.forEach(card => {
+    const cardRect = card.getBoundingClientRect();
+    
+    const visibleHeight = Math.max(
+      0,
+      Math.min(
+        cardRect.bottom,
+        mainRect.bottom
+      ) - Math.max(
+        cardRect.top,
+        mainRect.top
+      )
+    );
+    
+    const percentVisible = 1 - visibleHeight / cardRect.height;
+    
+    const n = range.slice(0, 2);
+    const mappedValue = (n[0] - percentVisible) / (n[1] - n[0]) + 1;
+    
+    const clamped = Math.min(Math.max(mappedValue, 0), 1);
+    
+    card.style.setProperty('--visibility', clamped);
+  });
+};
+
+
+//initializing webpage
+(function initializations() {
+  //Initializing the overlay, making it black,
+  //then fading to tranparent for a load effect.
+  (function initOverlay() {
+    // force initial state explicitly
+    overlay.style.backgroundColor = 'black';
+    
+    //setting the overlay late because satisfying;
+    setTimeout(() => {
+      window.fadeTo('transparent', overlay);
+    }, 250);
+  })();
+  
+  //initializing theme toggle:
+  (function themeToggle() {
+    const themeToggle = document.getElementById('themeToggle');
+    
+    themeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('lightmode');
+    });
+  })();
 })();
 
 //initialize animations and neon background
@@ -89,11 +184,40 @@ const overlay = document.getElementById('overlay');
     });
   })();
   
+  (function scrollingCardUpdate() {
+    if (!possiblePatterns.length) return;
+    
+    window.updateVisibility(cards, [0.4, 0.9]);
+    
+    let ticking = false;
+    main.addEventListener('scroll', () => {
+      //Event spam protection
+      if (!ticking) {
+        ticking = true;
+        window.requestAnimationFrame(() => {
+          ticking = false;
+        });
+        
+        window.updateVisibility(cards, [0.4, 0.9]);
+      }
+    });
+  })();
+
+  
   //Skipping if minimalValue isn't null
   if (minimalValue !== null) return;
   
   //starting background animation
   window.startNeonBackground();
+  
+  (async function konamiTime() {
+    const konamiCode = document.createElement('script');
+    konamiCode.id = 'konamicode';
+    konamiCode.type = 'module';
+    konamiCode.src = '/konamicode.js';
+    konamiCode.onload = () => konamiCode.remove();
+    document.querySelector('head').appendChild(konamiCode);
+  })();
 })();
 
 
@@ -115,7 +239,7 @@ const overlay = document.getElementById('overlay');
       
       e.preventDefault();
       
-      await fadeTo('black', overlay, 0.5);
+      await window.fadeTo('black', overlay, 0.5);
       
       // check for custom warning
       const warning = link.dataset.warning;
@@ -123,7 +247,7 @@ const overlay = document.getElementById('overlay');
         const ok = confirm(warning.replace(/\\n/g, '\n'));
         if (!ok) {
           setTimeout(async () => {
-            await fadeTo('transparent', overlay, 1);
+            await window.fadeTo('transparent', overlay, 1);
           }, 100);
           
           return;
@@ -136,44 +260,6 @@ const overlay = document.getElementById('overlay');
     });
   });
 })();
-
-
-//helper functions
-function romanToInt(roman) {
-  if (roman === null) {
-    return null;
-  }
-  
-  const map = { I:1, V:5, X:10, L:50, C:100, D:500, M:1000 };
-  let total = 0, prev = 0;
-  
-  for (let i = roman.length - 1; i >= 0; i--) {
-    const val = map[roman[i]] || 0;
-    total += val < prev ? -val : val;
-    prev = val;
-  }
-  
-  return total;
-}
-
-function fadeTo(color, object, time) {
-  return new Promise(resolve => {
-    const prevTransition = object.style.transition;
-    function done() {
-      object.removeEventListener('transitionend', done);
-      object.style.transition = prevTransition;
-      resolve();
-    }
-    object.addEventListener('transitionend', done);
-
-    // trigger fade
-    object.style.transition = `background-color ${time}s ease`;
-    object.style.backgroundColor = color;
-  });
-}
-
-
-
 
 
 

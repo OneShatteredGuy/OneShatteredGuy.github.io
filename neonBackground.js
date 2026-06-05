@@ -87,7 +87,7 @@ class bubble {
     }
     
     draw() {
-        const isLightMode = document.body.classList.contains('light-mode');
+        const isLightMode = document.body.classList.contains('lightmode');
         this.color = isLightMode ? this.lightColor : 'white';
         let blurColor = isLightMode ? this.lightColor : this.darkColor;
         
@@ -547,7 +547,6 @@ function animate(time) {
     requestAnimationFrame(animate);
 }
 
-export { changeSimFunction as changeSim };
 window.changeSim = changeSimFunction;
 
 window.startNeonBackground = function () {
@@ -555,8 +554,12 @@ window.startNeonBackground = function () {
     requestAnimationFrame(animate);
 };
 
-
-
+if (!window.cleanup) window.cleanup = {};
+window.cleanup.neonBackground = function () {
+    window.startNeonBackground = undefined;
+    window.changeSim = undefined;
+    delete window.cleanup.neonBackground;
+};
 
 
 
