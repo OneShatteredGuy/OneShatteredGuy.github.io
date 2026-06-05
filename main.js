@@ -166,8 +166,8 @@ const progCir = {
 
         // set radius first, then draw progress so getTotalLength() reads the right value
         const r = normalize(progress, 3, 35);
-        el.progCirBG.setAttribute('r', r);
-        el.progDots.setAttribute('r', r);
+        progCir.el.progCirBG.setAttribute('r', r);
+        progCir.el.progDots.setAttribute('r', r);
 
         progCir.drawCircleProgress(progCir.progress, normalize(progress, 3, 36));
     };
