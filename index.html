@@ -1,13 +1,46 @@
 <html lang="en-US">
     <head>
         <title>Noah Zielinski</title>
+        <link rel="stylesheet" href="style.css">
     </head>
     <body>
         <div id="overlay" class="overlay">
-            <svg width="400" height="300" viewBox="0 0 400 300">
-            <path fill="none" stroke="#534AB7" stroke-width="2.5" stroke-linecap="round"
-            d="M40,260 L120,100 L200,180 L280,60 L360,260"/>
+            <svg viewBox="0 0 200 100">
+                <!-- eye (centered at 100,50, scaled to ~1/5 of original) -->
+                <path id="lid-top-outer" fill="none" stroke="currentColor" stroke-width="0.75" d="M 100,50 C 100,50 100,50 100,50" stroke-linecap="round"/>
+                <path id="lid-bot-outer" fill="none" stroke="currentColor" stroke-width="0.75" d="M 100,50 C 100,50 100,50 100,50" stroke-linecap="round"/>
+                <path id="lid-top-inner" fill="none" stroke="currentColor" stroke-width="0.75" d="M 100,50 C 100,50 100,50 100,50" stroke-linecap="round"/>
+                <path id="lid-bot-inner" fill="none" stroke="currentColor" stroke-width="0.75" d="M 100,50 C 100,50 100,50 100,50" stroke-linecap="round"/>
+                <circle id="pupil" cx="100" cy="50" r="0" fill="none" stroke="currentColor" stroke-width="0.75"/>
+
+                <!-- N (left of eye) -->
+                <path id="n-left"  fill="none" stroke="currentColor" stroke-width="0.75" stroke-linecap="round" stroke-dasharray="1000" stroke-dashoffset="1000" d="M 72,44 L 72,56"/>
+                <path id="n-diag"  fill="none" stroke="currentColor" stroke-width="0.75" stroke-linecap="round" stroke-dasharray="1000" stroke-dashoffset="1000" d="M 72,44 L 80,56"/>
+                <path id="n-right" fill="none" stroke="currentColor" stroke-width="0.75" stroke-linecap="round" stroke-dasharray="1000" stroke-dashoffset="1000" d="M 80,44 L 80,56"/>
+
+                <!-- Z (right of eye) -->
+                <path id="z-top"  fill="none" stroke="currentColor" stroke-width="0.75" stroke-linecap="round" stroke-dasharray="1000" stroke-dashoffset="1000" d="M 120,44 L 128,44"/>
+                <path id="z-diag" fill="none" stroke="currentColor" stroke-width="0.75" stroke-linecap="round" stroke-dasharray="1000" stroke-dashoffset="1000" d="M 128,44 L 120,56"/>
+                <path id="z-bot"  fill="none" stroke="currentColor" stroke-width="0.75" stroke-linecap="round" stroke-dasharray="1000" stroke-dashoffset="1000" d="M 120,56 L 128,56"/>
+
+                <!-- Progress Circle -->
+                <circle id="progress-circle-background" cx="100" cy="50" r="3" fill="none" stroke="var(--bg-border)" stroke-width="1.5" transform="rotate(-90, 100, 50)"/>
+
+                <clipPath id="progress-clip">
+                    <path id="progress-clip-path" stroke-linecap="round" d=""/>
+                    <circle id="progress-tip-s" r="0" />
+                    <circle id="progress-tip-e" r="0"/>
+                </clipPath>
+
+
+                <circle id="progress-dots" cx="100" cy="50" r="3"
+                fill="none" style="stroke: var(--fg-accent)"
+                stroke-width="1" stroke-linecap="round"
+                transform="rotate(-90, 100, 50)"
+                clip-path="url(#progress-clip)"/>
             </svg>
         </div>
+
+        <script src="main.js"></script>
     </body>
 </html>
