@@ -1,12 +1,40 @@
+import { load_info, loadContent } from './contentloader.js';
+
+const overlay = {
+    dom: document.getElementById('overlay'),
+    
+    dismiss() {
+        overlay.dom.style.pointerEvents = 'none';
+        overlay.dom.style.opacity = 0;
+        setTimeout(() => {
+            overlay.dom.style.zIndex = -1;
+        }, 600);
+    },
+
+    show() {
+        overlay.dom.style.zIndex = '';
+        overlay.dom.style.opacity = 1;
+        setTimeout(() => {
+            overlay.dom.style.pointerEvents = '';
+        }, 600);
+    }
+}
+
 const progCir = {
     cx: 100,
     cy: 50,
+
+    desiredProgress: 0,
 
     progress: 0,
 
     dotOffset: 0,
 
     r: 0,
+
+    ready: false,
+
+    animating: false,
 
     el: {
         progCirBG:   document.getElementById('progress-circle-background'),
@@ -34,8 +62,10 @@ const progCir = {
 
         return `M ${cx},${cy} L ${start.x},${start.y} A ${r},${r} 0 ${large},1 ${end.x},${end.y} Z`;
     },
-    
+
     drawCircleProgress(progress, r) {
+        if (!r || r <= 0) return;
+
         progCir.progress = progress;
         progCir.r = r;
 
@@ -75,6 +105,42 @@ const progCir = {
 
     pushCaps() {
         return Number(progCir.progress === 0) * 3 - 1;
+    },
+
+    pushProgress(progress) {
+        if (progress >= 1) progress = 1.1;
+        progCir.desiredProgress = progress;
+
+        if (!progCir.animating) {
+            progCir.animating = true;
+            requestAnimationFrame(progCir.update);
+        }
+    },
+
+    update(ts) {
+        console.log('hi')
+        if (!progCir.ready) {
+            progCir.animating = false;
+            return;
+        }
+
+        console.log('hi2')
+
+        const tolerance = 0.001;
+        const diff = progCir.desiredProgress - progCir.progress;
+
+        if (Math.abs(diff) < tolerance) {
+            progCir.progress = progCir.desiredProgress;
+            progCir.drawCircleProgress(progCir.progress, progCir.r);
+            progCir.animating = false;
+            if (progCir.progress >= 1.0) overlay.dismiss();  // ← check here, after snapping
+            return;
+        }
+
+        progCir.progress += diff * 0.05;
+        progCir.drawCircleProgress(progCir.progress, progCir.r);
+
+        requestAnimationFrame(progCir.update);
     }
 };
 
@@ -211,12 +277,17 @@ const progCir = {
             { fn: sceneLineGrow,  duration: 1500 },
             { fn: sceneEyeOpen,   duration: 300  },
             { fn: scenePupilOpen, duration: 400  },
-            { fn: sceneEndless,   duration: Infinity}
+            { fn: sceneEndless,   duration: Infinity, onStart: () => {
+                progCir.ready = true;
+                requestAnimationFrame(progCir.update)
+            }}
         ],
 
         totalDuration: 0,
 
         start: null,
+
+        ready: false,
 
         animate(ts) {
             if (!controller.start) {
@@ -229,14 +300,18 @@ const progCir = {
 
             let sceneStart = 0;
             for (const scene of controller.scenes) {
-              const sceneElapsed = elapsed - sceneStart;
-              if (sceneElapsed < scene.duration) {
-                scene.fn(ease(Math.min(1, sceneElapsed / scene.duration)));
-                break;
-              } else {
-                scene.fn(1);
-              }
-              sceneStart += scene.duration;
+                const sceneElapsed = elapsed - sceneStart;
+                if (sceneElapsed < scene.duration) {
+                    if (!scene._started) {
+                        scene._started = true;
+                        scene.onStart?.();
+                    }
+                    scene.fn(ease(Math.min(1, sceneElapsed / scene.duration)));
+                    break;
+                } else {
+                    scene.fn(1);
+                }
+                sceneStart += scene.duration;
             }
 
             if (elapsed < controller.totalDuration) requestAnimationFrame(controller.animate);
@@ -246,10 +321,11 @@ const progCir = {
     requestAnimationFrame(controller.animate);
 })();
 
-//start building cards
-(function buildCards() {
 
-    function animate(ts) {
-    };
-    requestAnimationFrame(animate);
+//start building cards
+(async function buildCards() {
+    for await (const update of loadContent('portfolio')) {
+        const truePercent = Math.min(Math.max((update.progress.processes_completed + update.progress.percent_complete) / Object.keys(load_info.processes).length, 0), 1.0);
+        progCir.pushProgress(truePercent);
+    }
 })();
