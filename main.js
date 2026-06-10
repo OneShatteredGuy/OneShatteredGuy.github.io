@@ -321,11 +321,14 @@ const progCir = {
     requestAnimationFrame(controller.animate);
 })();
 
-
 //start building cards
 (async function buildCards() {
     for await (const update of loadContent('portfolio')) {
-        const truePercent = Math.min(Math.max((update.progress.processes_completed + update.progress.percent_complete) / Object.keys(load_info.processes).length, 0), 1.0);
+        const truePercent = Math.min(Math.max(
+            (update.progress.processes_complete.length + update.progress.percent_complete)
+            / Object.keys(load_info.processes).length,
+            0), 1.0);
+        
         progCir.pushProgress(truePercent);
     }
 })();
